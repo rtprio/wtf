@@ -190,6 +190,9 @@ func MakeWidget(
 	case "git":
 		settings := git.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = git.NewWidget(tviewApp, redrawChan, pages, settings)
+	case "giteaissue":
+		settings := giteaissue.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = giteaissue.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "github":
 		settings := github.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = github.NewWidget(tviewApp, redrawChan, pages, settings)

@@ -1,4 +1,4 @@
-package giteaissues
+package giteaissue
 
 import (
 	"fmt"
