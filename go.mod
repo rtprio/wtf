@@ -80,6 +80,7 @@ require github.com/gdamore/tcell/v2 v2.4.1-0.20210905002822-f057f0a857a1
 
 require (
 	cloud.google.com/go/compute v1.5.0 // indirect
+	code.gitea.io/sdk/gitea v0.15.1 // indirect
 	contrib.go.opencensus.io/exporter/jaeger v0.1.0 // indirect
 	contrib.go.opencensus.io/exporter/prometheus v0.1.0 // indirect
 	github.com/PuerkitoBio/goquery v1.5.1 // indirect
@@ -112,6 +113,7 @@ require (
 	github.com/gregjones/httpcache v0.0.0-20190212212710-3befbb6ad0cc // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.1 // indirect
 	github.com/hashicorp/go-retryablehttp v0.6.8 // indirect
+	github.com/hashicorp/go-version v1.2.1 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/huandu/xstrings v1.2.0 // indirect
 	github.com/imdario/mergo v0.3.9 // indirect

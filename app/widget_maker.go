@@ -29,6 +29,7 @@ import (
 	"github.com/wtfutil/wtf/modules/gcal"
 	"github.com/wtfutil/wtf/modules/gerrit"
 	"github.com/wtfutil/wtf/modules/git"
+	"github.com/wtfutil/wtf/modules/giteaissue"
 	"github.com/wtfutil/wtf/modules/github"
 	"github.com/wtfutil/wtf/modules/gitlab"
 	"github.com/wtfutil/wtf/modules/gitlabtodo"
