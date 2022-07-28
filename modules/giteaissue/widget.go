@@ -3,19 +3,19 @@ package giteaissue
 import (
 	"fmt"
 
+	gitea "code.gitea.io/sdk/gitea"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	gitea "code.gitea.io/sdk/gitea"
 )
 
 type Widget struct {
 	view.ScrollableWidget
 
-	todos        []*gitea.Issue
+	todos       []*gitea.Issue
 	giteaClient *gitea.Client
-	settings     *Settings
-	err          error
+	settings    *Settings
+	err         error
 }
 
 func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.Pages, settings *Settings) *Widget {
@@ -26,7 +26,7 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 	}
 
 	widget.giteaClient, _ = gitea.NewClient(settings.domain, gitea.SetToken(settings.apiKey))
-	
+
 	widget.SetRenderFunction(widget.Render)
 	widget.initializeKeyboardControls()
 
@@ -72,8 +72,8 @@ func (widget *Widget) content() (string, string, bool) {
 }
 
 func (widget *Widget) getTodos() ([]*gitea.Issue, error) {
-	lo := gitea.ListOptions { PageSize:30 }
-	opts := gitea.ListIssueOption{ Type: gitea.IssueTypeIssue, State: gitea.StateOpen , ListOptions: lo  } 
+	lo := gitea.ListOptions{PageSize: 30}
+	opts := gitea.ListIssueOption{Type: gitea.IssueTypeIssue, State: gitea.StateOpen, ListOptions: lo}
 
 	todos, _, err := widget.giteaClient.ListIssues(opts)
 	if err != nil {
@@ -111,7 +111,6 @@ func (widget *Widget) contentFrom(todos []*gitea.Issue) string {
 			widget.RowColor(idx),
 			todo.Title,
 			widget.trimTodoBody(todo.Body),
-			
 		)
 
 		str += utils.HighlightableHelper(widget.View, row, idx, len(todo.Body))
@@ -144,5 +143,5 @@ func (widget *Widget) markAsDone() {
 	_ = "noop"
 }
 func (widget *Widget) openTodo() {
-_ = "ok"
+	_ = "ok"
 }
