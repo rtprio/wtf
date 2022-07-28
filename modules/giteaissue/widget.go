@@ -25,9 +25,8 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 		settings: settings,
 	}
 
-	clientoption  := gitea.SetToken(settings.apiKey)
-	widget.giteaClient, _ = gitea.NewClient(settings.domain, clientoption)
-
+	widget.giteaClient, _ = gitea.NewClient(settings.domain, gitea.SetToken(settings.apiKey))
+	
 	widget.SetRenderFunction(widget.Render)
 	widget.initializeKeyboardControls()
 
@@ -73,8 +72,9 @@ func (widget *Widget) content() (string, string, bool) {
 }
 
 func (widget *Widget) getTodos() ([]*gitea.Issue, error) {
-	opts := gitea.ListIssueOption{  State: gitea.StateOpen } 
-	
+	lo := gitea.ListOptions { PageSize:30 }
+	opts := gitea.ListIssueOption{ Type: gitea.IssueTypeIssue, State: gitea.StateOpen , ListOptions: lo  } 
+
 	todos, _, err := widget.giteaClient.ListIssues(opts)
 	if err != nil {
 		return nil, err
@@ -105,11 +105,13 @@ func (widget *Widget) contentFrom(todos []*gitea.Issue) string {
 		//		if widget.settings.showProject {
 		//	row = fmt.Sprintf(`%s%s `, row, todo.Project.Path)
 		//}
-		row = fmt.Sprintf(`%s[mediumpurple](%s)[%s] %s`,
+		row = fmt.Sprintf(`%s[mediumpurple](%s)[%s] %s - %s`,
 			row,
-			todo.Poster,
+			todo.Repository.Name,
 			widget.RowColor(idx),
-			widget.trimTodoBody(todo.Title),
+			todo.Title,
+			widget.trimTodoBody(todo.Body),
+			
 		)
 
 		str += utils.HighlightableHelper(widget.View, row, idx, len(todo.Body))
